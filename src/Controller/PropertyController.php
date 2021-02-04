@@ -1,35 +1,32 @@
 <?php
     namespace  App\Controller;
 
-    use App\Entity\Property;
+    use App\Repository\PropertyRepository;
+    use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Annotation\Route;
 
     class PropertyController extends AbstractController {
+        /**
+         * @var EntityManagerInterface
+         */
+        private $em;
 
+
+        public function __construct(EntityManagerInterface $em)
+        {
+            $this->em= $em;
+        }
 
         /**
          * @Route("/bien", name="property_index", methods={"GET"})
+         * @param PropertyRepository $repository
+         *
          * @return Response
          */
-        public function index ():Response
+        public function index (PropertyRepository $repository):Response
         {
-            $property=new Property();
-            $property->setAddress('lorem ipsum')
-                ->setBedrooms(3)
-                ->setCity('Kébili')
-                ->setDescription('description ...........')
-                ->setFloor(3)
-                ->setRooms(3)
-                ->setSurface(200)
-                ->setHeat(2)
-                ->setPostalCode('4230 SK ')
-                ->setTitle('property 1');
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($property);
-            $em->flush();
 
             return $this->render("property/index.html.twig", [
                 'current_menu'=>'property'

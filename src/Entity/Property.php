@@ -78,8 +78,11 @@ class Property
     private $created_at;
 
     /**
-     * Property constructor.
+     * @ORM\Column(type="float")
      */
+    private $price;
+
+
     public function __construct()
     {
         $this->created_at= new \DateTime();
@@ -231,6 +234,22 @@ class Property
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function getFormattedPrice():string
+    {
+        return number_format($this->getPrice(), 2, ' ', ' ');
+    }
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }

@@ -9,4 +9,23 @@
         <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
     </div>
 
+    <h2>Les derniers biens</h2>
+<div class="row">
+  {% for p in properties %}
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">{{ p.title}} </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ p.city }}({{ p.postalCode }})</p>
+                <div class="text-primary" style="font-size: 2rem;font-weight:bold;">
+                    {{ p.formattedPrice }}DT
+
+                </div>
+            </div>
+        </div>
+    </div>
+  {% endfor %}
+</div>
 {% endblock %}
