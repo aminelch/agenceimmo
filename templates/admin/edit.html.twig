@@ -2,8 +2,13 @@
 
 {% block body %}
 
-    <h2>Editer le bien</h2>
-    {{ dump(property) }}
+    <h2>Editer le bien # {{ property.id }}</h2>
+    <h3>{{ property.title }}</h3>
+
+    {{ form_start(form) }}
+    {{ form_row(form) }}
+    <button class="btn btn-primary">Editer</button>
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block title %}

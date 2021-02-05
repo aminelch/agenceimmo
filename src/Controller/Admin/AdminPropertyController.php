@@ -2,6 +2,7 @@
     namespace App\Controller\Admin ;
 
     use App\Entity\Property;
+    use App\Form\PropertyType;
     use App\Repository\PropertyRepository;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Response;
@@ -39,8 +40,14 @@
          * @return Response
          */
         public function edit(Property $property):Response{
+            $form= $this->createForm(PropertyType::class, $property);
+
             $current_menu='property';
-                return $this->render("admin/edit.html.twig", compact($property,$current_menu));
+                return $this->render("admin/edit.html.twig",[
+                    'property'=>$property,
+                    'current_menu'=>$current_menu,
+                    'form'=>$form->createView()
+                ]);
         }
 
     }
