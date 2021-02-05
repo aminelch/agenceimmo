@@ -11,6 +11,10 @@
     <body>
 {#    {% set current_menu = current_menu ? current_menu : '' %}#}
 
+    {% if current_menu is not defined %}
+        {% set current_menu = 'property' %}
+    {% endif %}
+
     {% include 'partials/nav.html.twig' with {'current_menu': current_menu} %}
     <div class="container my-4">
         {% block body %}{% endblock %}
