@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PropertyRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,6 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Property
 {
+    const  HEAT = [
+      0=>'Electrique',
+      1=>'Gaz'
+    ];
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -171,6 +176,14 @@ class Property
         return $this->heat;
     }
 
+    /**
+     * @return string
+     */
+    public function getHeatingType():string
+    {
+        return self::HEAT[$this->getHeat()];
+    }
+
     public function setHeat(int $heat): self
     {
         $this->heat = $heat;
@@ -247,6 +260,13 @@ class Property
     {
         return number_format($this->getPrice(), 2, ' ', ' ');
     }
+    public function getSlug():string
+    {
+        $slug = new Slugify;
+        return $slug->slugify($this->getTitle());
+//        return (new Slugify()->slugify($this->getTitle());
+    }
+
     public function setPrice(float $price): self
     {
         $this->price = $price;

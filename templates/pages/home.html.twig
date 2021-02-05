@@ -15,7 +15,7 @@
     <div class="col-md-3">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">{{ p.title}} </h5>
+                <h5 class="card-title"><a href="{{ path('property_show',{slug: p.slug, id:p.id}) }}">{{ p.title}}</a> </h5>
             </div>
             <div class="card-body">
                 <p class="card-text">{{ p.city }}({{ p.postalCode }})</p>
