@@ -40,8 +40,33 @@
             ]);
         }
 
+
         /**
-         * @Route("/admin/{id}", name="admin_property_edit", requirements={"id": "[0-9]*"})
+         * @Route("/admin/property/create", name="admin_property_new", methods={"POST|GET"})
+         * @param Request $request
+         *
+         * @return Response
+         */
+        public function new (Request $request): Response
+        {
+            $property=new Property();
+            $form = $this->createForm(PropertyType::class, $property);
+
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $this->em->persist($property);
+                $this->em->flush();
+                return $this->redirectToRoute('admin_property_index');
+            }
+            
+            return $this->render('admin/new.html.twig', [
+                'form'=>$form->createView()
+            ]);
+        }
+
+        /**
+         * @Route("/admin/property/{id}", name="admin_property_edit")
          * @param Property $property
          * @param Request  $request
          *
@@ -64,5 +89,6 @@
                     'form'=>$form->createView()
                 ]);
         }
+
 
     }

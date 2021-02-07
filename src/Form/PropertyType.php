@@ -24,8 +24,8 @@ class PropertyType extends AbstractType
             ->add('floor',null,['label'=>'floor'])
             ->add('heat',ChoiceType::class, [
                 'label'=>'heat',
-                'choices'=>Property::HEAT
-//                'choices'=>$this->getChoices()
+//                'choices'=>Property::HEAT
+                'choices'=>$this->getChoices()
             ])
             ->add('city',null,['label'=>'Ville'])
             ->add('address',null,['label'=>'Adresse'])
