@@ -20,11 +20,10 @@ class PropertyType extends AbstractType
             ])
             ->add('surface')
             ->add('rooms',null,['label'=>'Pièces'])
-            ->add('bedrooms',null,['label'=>'Pièces'])
-            ->add('floor',null,['label'=>'floor'])
+            ->add('bedrooms',null,['label'=>'Chambres'])
+            ->add('floor',null,['label'=>'Etages'])
             ->add('heat',ChoiceType::class, [
-                'label'=>'heat',
-//                'choices'=>Property::HEAT
+                'label'=>'Chauffage',
                 'choices'=>$this->getChoices()
             ])
             ->add('city',null,['label'=>'Ville'])
@@ -40,16 +39,20 @@ class PropertyType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Property::class,
-            'translation_domain'=>'forms'
+//            'translation_domain'=>'forms'
         ]);
     }
 
+    /**
+     * Retourne les choix pour un bien en particulier
+     * @return array
+     */
     private function getChoices(): array
     {
         $choices = Property::HEAT;
         $output=[];
-        foreach ($choices as $key =>$value){
-            $output[$value]=$key;
+        foreach ($choices as $k =>$v){
+            $output[$v]=$k;
         }
         return $output;
     }

@@ -59,36 +59,49 @@
                 $this->em->flush();
                 return $this->redirectToRoute('admin_property_index');
             }
-            
+
             return $this->render('admin/new.html.twig', [
                 'form'=>$form->createView()
             ]);
         }
 
         /**
-         * @Route("/admin/property/{id}", name="admin_property_edit")
+         * @Route("/admin/property/{id}", name="admin_property_edit", methods={"POST|GET"})
          * @param Property $property
          * @param Request  $request
-         *
          * @return Response
          */
         public function edit(Property $property, Request $request):Response{
-            $form= $this->createForm(PropertyType::class, $property);
+            $form=$this->createForm(PropertyType::class,$property);
             $form->handleRequest($request);
-            if($form->isSubmitted()){
+
+            if($form->isSubmitted()&& $form->isValid()){
+                $this->em->persist($property);
                 $this->em->flush();
-//              dd('form submitted');
                 $this->addFlash('success', 'Le bien à été modifié');
                 return $this->redirectToRoute('admin_property_index');
             }
-
-            $current_menu='property';
             return $this->render("admin/edit.html.twig",[
                     'property'=>$property,
-                    'current_menu'=>$current_menu,
-                    'form'=>$form->createView()
+                    'form'=>$form->createView(),
+                    'current_menu'=>'property'
                 ]);
         }
 
+        /**
+         * @Route("/admin/property/{id}", name="admin_property_delete", methods={"DELETE"})
+         * @param Property $property
+         * @param          $request
+         *
+         * @return Response
+         */
+        public function delete(Property $property, Request $request):Response{
+            if($this->isCsrfTokenValid('delete'.$property->getId(), $request->get('_csrf'))){
+            $this->em->remove($property);
+            $this->em->flush();
+            }
+            $this->addFlash('success', 'Le bien à été supprimé!');
+            return $this->redirectToRoute('admin_property_index');
+        }
 
     }

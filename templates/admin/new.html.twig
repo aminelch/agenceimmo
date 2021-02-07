@@ -3,10 +3,7 @@
 
 {% block body %}
 <h2>Nouveau bien</h2>
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
-    <button type="submit" class="btn btn-primary btn-block">Ajouter</button>
-    {{ form_end(form) }}
+{{ include('admin/property/_form.html.twig') }}
 {% endblock %}
 
 
