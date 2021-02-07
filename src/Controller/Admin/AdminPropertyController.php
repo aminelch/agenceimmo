@@ -92,7 +92,6 @@
          * @Route("/admin/property/{id}", name="admin_property_delete", methods={"DELETE"})
          * @param Property $property
          * @param          $request
-         *
          * @return Response
          */
         public function delete(Property $property, Request $request):Response{
