@@ -14,8 +14,13 @@
   {% for p in properties %}
     <div class="col-md-3">
         <div class="card">
+            <img src="{{ asset('img/property_default.jpeg') }}" class="card-img-top" alt="">
             <div class="card-header">
-                <h5 class="card-title"><a href="{{ path('property_show',{slug: p.slug, id:p.id}) }}">{{ p.title}}</a> </h5>
+                <h5 class="card-title">
+                    <a href="{{ path('property_show',{slug: p.slug, id:p.id}) }}">
+                        {{ p.title}}
+                    </a>
+                </h5>
             </div>
             <div class="card-body">
                 <p class="card-text">{{ p.city }}({{ p.postalCode }})</p>
